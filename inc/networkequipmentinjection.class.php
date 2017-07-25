@@ -1,6 +1,6 @@
 <?php
 /*
- * @version $Id$
+ * @version $Id: HEADER 14684 2011-06-11 06:32:40Z remi $
  LICENSE
 
  This file is part of the datainjection plugin.
@@ -20,20 +20,21 @@
  --------------------------------------------------------------------------
  @package   datainjection
  @author    the datainjection plugin team
- @copyright Copyright (c) 2010-2013 Datainjection plugin team
+ @copyright Copyright (c) 2010-2017 Datainjection plugin team
  @license   GPLv2+
             http://www.gnu.org/licenses/gpl.txt
- @link      https://forge.indepnet.net/projects/datainjection
+ @link      https://github.com/pluginsGLPI/datainjection
  @link      http://www.glpi-project.org/
  @since     2009
  ---------------------------------------------------------------------- */
 
 if (!defined('GLPI_ROOT')) {
-   die("Sorry. You can't access directly to this file");
+    die("Sorry. You can't access directly to this file");
 }
 
 class PluginDatainjectionNetworkEquipmentInjection extends NetworkEquipment
-                                                   implements PluginDatainjectionInjectionInterface {
+                                                   implements PluginDatainjectionInjectionInterface
+{
 
 
    static function getTable() {
@@ -44,16 +45,18 @@ class PluginDatainjectionNetworkEquipmentInjection extends NetworkEquipment
 
 
    function isPrimaryType() {
+
       return true;
    }
 
 
    function connectedTo() {
+
       return array();
    }
 
 
-   /**
+    /**
     * @see plugins/datainjection/inc/PluginDatainjectionInjectionInterface::getOptions()
    **/
    function getOptions($primary_type='') {
@@ -79,16 +82,16 @@ class PluginDatainjectionNetworkEquipmentInjection extends NetworkEquipment
       $options['ignore_fields'] = array_merge($blacklist, $notimportable);
 
       $options['displaytype']   = array("dropdown"       => array(3, 4, 11, 23, 31, 32, 33,
-                                                                  40, 49, 71),
-                                        "bool"           => array(86),
-                                        "user"           => array(24, 70),
-                                        "multiline_text" => array(16, 90));
+                                                                40, 49, 71),
+                                      "bool"           => array(86),
+                                      "user"           => array(24, 70),
+                                      "multiline_text" => array(16, 90));
 
       return PluginDatainjectionCommonInjectionLib::addToSearchOptions($tab, $options, $this);
    }
 
 
-   /**
+    /**
     * @see plugins/datainjection/inc/PluginDatainjectionInjectionInterface::addOrUpdateObject()
    **/
    function addOrUpdateObject($values=array(), $options=array()) {
@@ -99,7 +102,7 @@ class PluginDatainjectionNetworkEquipmentInjection extends NetworkEquipment
    }
 
 
-   /**
+    /**
     * @param $values
     * @param $add                (true by default)
     * @param $rights    array
@@ -107,7 +110,7 @@ class PluginDatainjectionNetworkEquipmentInjection extends NetworkEquipment
    function processAfterInsertOrUpdate($values, $add=true, $rights=array()) {
 
       if (isset($values['NetworkEquipment']['nb_ports'])) {
-         for ($i=1 ; $i<=$values['NetworkEquipment']['nb_ports'] ; $i++) {
+         for ($i=1; $i<=$values['NetworkEquipment']['nb_ports']; $i++) {
             $input   = array();
             $netport = new NetworkPort();
             $add     = "";
@@ -127,4 +130,3 @@ class PluginDatainjectionNetworkEquipmentInjection extends NetworkEquipment
    }
 
 }
-?>
