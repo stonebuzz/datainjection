@@ -123,6 +123,7 @@ function getTypesToInject() {
    $INJECTABLE_TYPES = ['PluginDatainjectionCartridgeItemInjection'              => 'datainjection',
                         'PluginDatainjectionBudgetInjection'                      => 'datainjection',
                         'PluginDatainjectionComputerInjection'                    => 'datainjection',
+                        'PluginDatainjectionRackInjection'                        => 'datainjection',
                         'PluginDatainjectionNotepadInjection'                     => 'datainjection',
                         'PluginDatainjectionComputer_ItemInjection'               => 'datainjection',
                         'PluginDatainjectionConsumableItemInjection'              => 'datainjection',
