@@ -1513,9 +1513,9 @@ class PluginDatainjectionCommonInjectionLib
 
       foreach ($values as $key => $value) {
          $option = self::findSearchOption($options, $key);
-         if ($option !== false && (!isset($option['checktype']) || $option['checktype'] != self::FIELD_VIRTUAL)) {
+         if ($key === 'id' || $option !== false && (!isset($option['checktype']) || $option['checktype'] != self::FIELD_VIRTUAL)) {
             //If field is a dropdown and value is '', then replace it by 0
-            if (self::isFieldADropdown($option['displaytype']) && $value == self::EMPTY_VALUE) {
+            if ($option !== false && self::isFieldADropdown($option['displaytype']) && $value == self::EMPTY_VALUE) {
                $toinject[$key] = self::DROPDOWN_EMPTY_VALUE;
             } else {
                $toinject[$key] = $value;
@@ -1532,10 +1532,18 @@ class PluginDatainjectionCommonInjectionLib
             $toinject[$key] = $value;
          }
 
-         //useful for Infocom
-         if (get_class($item) == Infocom::getType() &&
-         ($key === 'items_id' || $key === 'itemtype')) {
-            $toinject[$key] = $value;
+
+         if (
+            in_array(get_class($item), [
+               Infocom::getType(),
+               Item_OperatingSystem::getType()
+            ])
+            && in_array($key, [
+               'items_id',
+               'itemtype'
+            ])
+         ) {
+               $toinject[$key] = $value;
          }
 
          //keep id in case of update
