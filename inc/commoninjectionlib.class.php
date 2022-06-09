@@ -1546,6 +1546,19 @@ class PluginDatainjectionCommonInjectionLib
                $toinject[$key] = $value;
          }
 
+         if (
+            $item instanceof CommonDBRelation
+            && in_array($key, [
+               'items_id',
+               'itemtype',
+               $item::$items_id_1
+            ])
+         ) {
+               $toinject[$key] = $value;
+         }
+
+
+
          //keep id in case of update
          if (!$add && $key === 'id') {
             $toinject[$key] = $value;
